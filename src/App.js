@@ -69,11 +69,7 @@ function App() {
             <Route path="/user/MemberSupportCommunity" element={<MemberSupportCommunity/>} />
             </Route>
           </Routes>
-      </BrowserRouter>
-
-<MemberHome/>
-
-     
+      </BrowserRouter>     
 
 {/* <MemberLayout/> */}
 {/* <MemberHome/> */}
