@@ -72,7 +72,7 @@ const [getFalseStaus_cources, setFalseStausCources] = useState([]);
        const getFalseStausCources = async () => {
          let result = await fetch("http://128.199.221.11:5000/Admin/getCources");
          result = await result.json();
-         console.log(result)
+         console.log(result)  
          console.log("hamzano stratus found")
          if(result<0){
            result.send("<h1>No Data!</h1>")

@@ -38,7 +38,7 @@ function App() {
           <Route path="/" element={<Signin />}/>
           <Route path="/CreateAccont" element={<CreateAccont/>}/>
           <Route path="/ForgotPassword" element={<ForgotPassword/>}/>   
-          <Route path="/Admin" element={<SigninAdmin />} />   
+          <Route path="admin" element={<SigninAdmin />} />   
         </Routes>  
             {/* User Hamza */}
          <Routes>
@@ -71,6 +71,7 @@ function App() {
           </Routes>
       </BrowserRouter>
 
+<MemberHome/>
 
      
 

@@ -1,6 +1,6 @@
 @font-face {
   font-family:  Roche Sans ;
-  src: ("../public/Roche Sans/RocheSans-Regular.ttf") format('truetype');
+  /* src: url("../public/Roche\ Sans/") format('truetype'); */
   /* You can include more font formats here if needed */
 }
 
