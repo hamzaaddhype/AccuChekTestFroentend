@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState,useEffect } from 'react';
 import Loader from '../components/Loader';
+import { API_Get_Products,API_Upload_Videos } from '../Configuration/Constant';
 const Shop = () => {
   const [getProducts, setProducts] = useState([]);
   const [isloading, setLoading] = useState(true);
@@ -16,7 +17,7 @@ const Shop = () => {
     getData();
   }, []);
   const getData = async () => {
-    let result = await fetch("http://128.199.221.11:5000/Admin/getProducts");
+    let result = await fetch(API_Get_Products);
     result = await result.json();
     console.log(result);
     if(result<0){
@@ -32,6 +33,7 @@ const Shop = () => {
      {isloading?(
       <Loader />
     ):( 
+      <div className='shop_parent_div'>
       <div className='position-absolute' style={{marginLeft:'20%',width:"80%"}}>
        <div className='container  shop_container for_common_Top_margin shop_remove_border shop_container_height' style={{width:'95%'}} >
          <div className='row'>
@@ -43,7 +45,7 @@ const Shop = () => {
             <div className='col-md-6'>
                 <div className='row justify-content-end'>
                    <dic className="col-4 ">
-                      <input type='serch' />
+                      <input type='serch ' id='shop_serch' />
                    </dic>
                 </div>
             </div>
@@ -53,44 +55,44 @@ const Shop = () => {
     <div className='col-md-12'>
         <div className='d-flex justify-content-between'>
         <button
-          className={`btn common_button font_family_common btn_equal ${selectedCategory === 'All' ? 'active' : ''}`}
+          className={`btn common_button font_family_common btn_equal ${selectedCategory === 'All' ? 'activeShop' : ''}`}
           onClick={() => setSelectedCategory('All')}>
           All
         </button>
         {/* 2nd button */}
         <button
-          className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Products' ? 'active' : ''}`}
+          className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Products' ? 'activeShop' : ''}`}
           onClick={() => setSelectedCategory('Products')}>
           Products
         </button>
             {/*3rd Button  */}
             <button
-              className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Food' ? 'active' : ''}`}
+              className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Food' ? 'activeShop' : ''}`}
               onClick={() => setSelectedCategory('Food')}>
               Food
             </button>
             {/* 4th Button */}
             <button
-            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Gift' ? 'active' : ''}`}
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Gift' ? 'activeShop' : ''}`}
             onClick={() => setSelectedCategory('Gift')}>
             Gifts
           </button>
           {/* 5th Button */}
           {/*  */}
           <button
-            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Electronics' ? 'active' : ''}`}
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Electronics' ? 'activeShop' : ''}`}
             onClick={() => setSelectedCategory('Electronics')}>
             Electronics
           </button>
           {/*  */}
           <button
-            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Clothing' ? 'active' : ''}`}
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Clothing' ? 'activeShop' : ''}`}
             onClick={() => setSelectedCategory('Clothing')}>
             Clothing
           </button>
           {/* 6th Button */}
           <button
-            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Dessert' ? 'active' : ''}`}
+            className={`btn common_button font_family_common btn_equal ${selectedCategory === 'Dessert' ? 'activeShop' : ''}`}
             onClick={() => setSelectedCategory('Dessert')}>
             Dessert
           </button>
@@ -111,7 +113,7 @@ const Shop = () => {
   return(
     <div className='col-md-3 col-sm-6 col-xs-12 mb-5 set_card_showdow'>
             <div className="card product_card border-0" >
-                <img src={`http://128.199.221.11:5000/uploads/${product.image}`} height="277px" width="306px" className="card-img-top img-fluid" alt="..."/>
+                <img src={`${API_Upload_Videos}${product.image}`} height="277px" width="306px" className="card-img-top img-fluid" alt="..."/>
                 <div className="card-body">
                   <div className='product_details font_family_common d-flex justify-content-between align-items-center h-50'>
                   <h5 className="card-title font_family_common">{product.title}</h5>
@@ -130,6 +132,7 @@ const Shop = () => {
 })}
       </div>
     </div>
+      </div>
       </div>
       )}
     </>

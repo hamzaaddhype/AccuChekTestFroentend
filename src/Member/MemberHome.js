@@ -1,17 +1,22 @@
-import React from 'react'
+import React,{useState} from 'react'
 const MemberHome = () => {
+  const storedUserName = localStorage.getItem('userName');
+   const storedUserId = localStorage.getItem('userId');
+   const [userImage, setUserImage] = useState("");
+   const storedImg = localStorage.getItem('userImage');
   return (
     <>
        {/* Member Prodile  */}
         {/* <div className="c" id="admin_user"> */}
-        <div className='user_profile_root_crad position-absolute ps-2' style={{width:"80%",marginLeft:"20%"}}>
-        <div className="container for_common_Top_margin">
+        <div className='user_profile_root_crad position-absolute ps-2' style={{width:"78%",marginLeft:"20%"}}>
+        <div className="container for_common_Top_margin" id='doc_image_container'>
     <div className='row ms-1 doctor_profile'>
       <div className='doctor_image doc_parent_div d-flex'>
-        <img src='/doctor-bigImage.png' width="138.67px" height="138.67px" alt='' />
+        {/* <img src='https://static.vecteezy.com/system/resources/thumbnails/008/442/086/small/illustration-of-human-icon-user-symbol-icon-modern-design-on-blank-background-free-vector.jpg' width="138.67px" height="138.67px" alt='' className='contol_width' /> */}
+        <img src={`http://localhost:5000/uploads/${storedImg}`} className='rounded-circle' alt='' width="138.67px" height="138.67px" />
         <div className='doc_child ms-5'>
           <div className='d-flex ms-1'>
-            <h6 className='doc_name'>Ahmed Ali </h6>
+            <h6 className='doc_name'>{storedUserName} </h6>
             <h6 className='doc_level doc_name'>Level 1</h6>
           </div>
 
@@ -37,7 +42,7 @@ const MemberHome = () => {
             <div className='col-md-3 mb-2'>
               <div className='member_card'>
               <div className='card_heading p-3 text-dark'>
-                <p className='total_points'>Total Ponits</p>
+                <p className='total_points'>Total Point</p>
               </div>
               <div className='card_heading text-center text-dark'>
                 <h1 className='total_hours'>230</h1>
@@ -81,7 +86,7 @@ const MemberHome = () => {
       {/* Member Acheviments */}
       <div className='container'>
         <div className='row ms-1 text-center'>
-          <div className="col-md-6 col-sm-8 mb-3 width me-3 for_achivements_background text-align-center for_padd">
+          <div className="col-md-6 col-sm-8 mb-3 width me-3 for_achivements_background text-align-center for_padd set_rows_wids" >
           {/* First Row */}
             <div className='row'>
               <div className='col-md-6 p-2'>
@@ -167,10 +172,10 @@ const MemberHome = () => {
           </div>
           </div>
           {/* Second Half Card Start Here */}
-          <div className="col-md-6 width for_achivements_background">
+          <div className="col-md-6 width for_achivements_background set_rows_wids">
           <div className='row p-2'>
               <div className='col-md-6 p-2'>
-                <h3 className='achivement'>Completed Cources</h3>
+                <h3 className='achivement'>Completed Courses</h3>
               </div>
               <div className='col-md-6 text-end'>
               <p className='set_date'>19 feb 2019</p>
@@ -184,7 +189,7 @@ const MemberHome = () => {
               </span>
             </div>
             <div className='col-md-5'>
-              <h6 className='control_col'>Cource name</h6>
+              <h6 className='control_col'>Course name</h6>
               <div className='for_display progress_set_height'>
               <div className="progress progress_set_height" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar w-75 progress_set_height"></div>
@@ -203,7 +208,7 @@ const MemberHome = () => {
               </span>
             </div>
             <div className='col-md-5'>
-              <h6 className='control_col'>Cource name</h6>
+              <h6 className='control_col'>Course name</h6>
               <div className='for_display progress_set_height'>
               <div className="progress progress_set_height" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar w-75 progress_set_height"></div>
@@ -222,7 +227,7 @@ const MemberHome = () => {
               </span>
             </div>
             <div className='col-md-5'>
-              <h6 className='control_col'>Cource name</h6>
+              <h6 className='control_col'>Course name</h6>
               <div className='for_display progress_set_height'>
               <div className="progress progress_set_height" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar w-75 progress_set_height"></div>
@@ -241,7 +246,7 @@ const MemberHome = () => {
               </span>
             </div>
             <div className='col-md-5'>
-              <h6 className='control_col'>Cource name</h6>
+              <h6 className='control_col'>Course name</h6>
               <div className='for_display progress_set_height'>
               <div className="progress progress_set_height" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar w-75 progress_set_height"></div>
@@ -260,7 +265,7 @@ const MemberHome = () => {
               </span>
             </div>
             <div className='col-md-5'>
-              <h6 className='control_col'>Cource name</h6>
+              <h6 className='control_col'>Course name</h6>
               <div className='for_display progress_set_height'>
               <div className="progress progress_set_height" role="progressbar" aria-label="Basic example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
               <div className="progress-bar w-75 progress_set_height"></div>

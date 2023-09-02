@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import ReactPlayer from 'react-player'
-import Loader from '../components/Loader'
+import Loader from '../../components/Loader'
+import { API_Get_Courses, API_Admin_Delete_Course,API_Upload_Videos } from '../../Configuration/Constant';
+import Swal from "sweetalert2";
 // import {getCourcesApi} from "../../Configuration/Const"
 const GetCources = () => {
 // Fet All Cources from Database
@@ -12,7 +14,7 @@ useEffect(() => {
 }, []);
 
 const getData = async () => {
-  let response = await fetch("http://128.199.221.11:5000/Admin/getCources") ;
+  let response = await fetch(API_Get_Courses) ;
   let result = await response.json();
   if(result<0){
     result.send("<h1>No Data!</h1>")
@@ -22,7 +24,42 @@ const getData = async () => {
   console.log(result._id);
   setLoading(false)
 };
-
+const handleDelete = async (id) => {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, delete it!'
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      // Delete the product
+      await fetch(`${API_Admin_Delete_Course}${id}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Course deleted successfully");
+            // Call getData to fetch updated product list
+            getData();
+          } else {
+            console.error("Error deleting Course");
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+        });
+      
+      Swal.fire(
+        'Deleted!',
+        'Your Course has been deleted.',
+        'success'
+      )
+    }
+  });
+};
 let count2 = getProducts.length;
 
   const [videoCompleted, setvideoCompleted] = useState(false);
@@ -48,14 +85,14 @@ let count2 = getProducts.length;
     ):( 
       <div className='c' id='admin_user'>
       {/* Heading */}
-        <h1 className='text-center'>All Cources</h1>
+        <h1 className='text-center'>All Courses</h1>
         <div className='container'>
           <div className='row mb-3'>
           <div class="row height d-flex justify-content-center align-items-center">
               <div class="col-md-8">
                 <div class="search">
                   <i class="fa fa-search"></i>
-                  <input type="text" class="form-control" placeholder="Serch Vedios"/>
+                  <input type="text" class="form-control" placeholder="Serch Vedios" id='set_serch_height'/>
                   <button class="btn">Search</button>
                 </div>
               </div>
@@ -73,16 +110,13 @@ let count2 = getProducts.length;
               <div className="row mb-3 for_row_background">
               <div className='col-md-4'>
                   <div className="vedio_ThumNail">
-                    <ReactPlayer url={`http://128.199.221.11:5000/uploads/${Cource.image}`} controls={true} onProgress={handleTime}   onEnded={handleVideoEnded} />
+                    <ReactPlayer url={`${API_Upload_Videos}${Cource.image}`} controls={true} onProgress={handleTime}   onEnded={handleVideoEnded} />
                     {console.log(`Time taken: ${endTime && startTime ? (endTime - startTime) / 1000 + " seconds" : "N/A"}`)}
 
                   </div>
               </div>
-              {/* <div>
-              <img src={Cource.image} alt='' />
-              <p>{Cource.image}</p>
-              </div> */}
-              <div className='col-md-4'>
+              
+              <div className='col-md-3'>
                 <div className="cource_details">
                     <h6>{Cource.name}</h6>
                     <p>{Cource.discription}</p>
@@ -91,6 +125,16 @@ let count2 = getProducts.length;
               </div>
               <div className='col-md-4 cource_ponits'>
                 <h6> <i class="fa-solid fa-award"></i> {Cource.points} </h6>
+              </div>
+              <div className='col-md-1'>
+              <div className='w-100 align-self-end'>
+                <button
+                onClick={() => {
+                      handleDelete(Cource._id);
+                      console.log(Cource._id);
+                    }} 
+                className='btn btn-danger '> <i className='fa-solid fa-trash'></i> </button>
+              </div>
               </div>
           </div>
             )
