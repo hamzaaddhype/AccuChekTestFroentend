@@ -143,12 +143,15 @@ const [getProducts, setProducts] = useState([]);
             <div className='row ms-0 mb-5' key={product._id}>
             <div className='col-md-3 video_Thumbnail' style={{ height: '10%' }}>
                 {/* Video Player */}
-                <NavLink to="/user/MemberVideo">
+                {/* <NavLink to="/user/MemberVideo"> */}
+                <NavLink to={`/user/MemberVideo/${product._id}`}>
                 <ReactPlayer
                 
                 ref={playerRefs.current[index]}
-                url={`${API_Upload_Videos}${product.image}`}
-                controls={true}
+                // url={`${API_Upload_Videos}${product.image}`}
+                url={`http://localhost:5000/uploads/${product.image}`}
+                controls={false}
+                // light={true}
                 // light={`${API_Upload_Videos}${product.image}`}
                 onProgress={({ playedSeconds }) => handleTime(index, playedSeconds)}
                 onDuration={(videoDuration) => handleDuration(index, videoDuration)}

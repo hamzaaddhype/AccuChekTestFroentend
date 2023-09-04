@@ -69,7 +69,7 @@ function App() {
             <Route path="/user/MemberHome" element={<MemberHome/>} />
             <Route path="/user/MemberCourses" element={<MemberCourses/>} />
             <Route path="/user/MemberCompleteCourses" element={<MemberCompleteCourses/>} />
-            <Route path="/user/MemberVideo" element={<MemberVideo/>} />
+            <Route path="/user/MemberVideo/:id" element={<MemberVideo/>} />
             <Route path="/user/MemberSupportCommunity" element={<MemberSupportCommunity/>} />
             </Route>
           </Routes>

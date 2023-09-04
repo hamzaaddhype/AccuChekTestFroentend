@@ -6,7 +6,7 @@ const MemberCompleteCourses = () => {
     const [getTrueCources,setTrueCources] = useState([]);
     const [getFalseStaus_cources, setFalseStausCources] = useState([]);
     const getTrueStausCources = async () => {
-        let result = await fetch(API_Get_CompleteVideoStatus);
+        let result = await fetch("http://localhost:5000/User/getTrueStausCources");
         result = await result.json();
         console.log(result)
         console.log("hamzano stratus found")
@@ -19,7 +19,7 @@ const MemberCompleteCourses = () => {
         // setLoading(false)
       };
       const getFalseStausCources = async () => {
-        let result = await fetch(API_Get_UnCompletedCourseVideo);
+        let result = await fetch("http://localhost:5000/User/getFalseStausCources");
         result = await result.json();
         console.log(result)
         console.log("hamzano stratus found")
@@ -66,7 +66,8 @@ const MemberCompleteCourses = () => {
                     <div className='col-sm-2' id="set_height_width">
                         {/* <img src='/medical-doctor.png' className='rounded'></img> */}
                     <ReactPlayer
-                    url={`${API_Upload_Videos}${trueCources.image}`}
+                    // url={`${API_Upload_Videos}${trueCources.image}`}
+                    url={`http://localhost:5000/uploads/${trueCources.image}`}
                     controls={true}
                     // className="set_height_width"
                     

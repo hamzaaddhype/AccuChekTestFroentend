@@ -8,11 +8,6 @@ const Shop = () => {
 
   const [selectedCategory, setSelectedCategory] = useState('All');
 
-
-
-
-
-
   useEffect(() => {
     getData();
   }, []);

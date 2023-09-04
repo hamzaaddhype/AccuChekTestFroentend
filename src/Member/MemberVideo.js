@@ -5,45 +5,50 @@ import ReactPlayer from 'react-player'
 import Swal from 'sweetalert2';
 // import { API_Get_Courses, API_Upload_Videos } from '../Constants/Constant.js';
 // import { wait } from '@testing-library/user-event/dist/utils';
-import { Params } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 const MemberVideo = () => {
+  const [getSingleCourse, setSingleCourse] = useState([""]);
 const [getFalseStaus_cources, setFalseStausCources] = useState([]);
 const [isloading, setLoading] = useState(true);
 const [getProducts, setProducts] = useState([]);
 
+const params = useParams();
 
-  
-    const getData = async () => {
-      // let result = await fetch("http://128.199.221.11:5000/Admin/getCources");
-      let result = await fetch("http://localhost:5000/Admin/getCources");
-      result = await result.json();
-      if(result<0){
+// const [getSingleCourse, setSingleCourse] = useState("");
+const [errors, setErrors] = useState({});
+
+useEffect(() => {
+  getCourseData();
+  getFalseStausCources()
+}, []);
+
+
+const getCourseData = async () => {
+  let result = await fetch(`http://localhost:5000/Admin/getSingleCourse/${params.id}`);
+  result = await result.json();
+  if(result<0){
         result.send("<h1>No Data!</h1>")
       }
-      console.log("Result from API Members list", result);
-      setProducts(result);
-      console.log(result._id);
-      setLoading(false);
-    };
-     const getFalseStausCources = async () => {
-      //  let result = await fetch("http://128.199.221.11:5000/Admin/getCources");
-      let result =await fetch("http://localhost:5000/Admin/getCources");
-       result = await result.json();
-       console.log(result)
-       console.log("hamzano stratus found")
-       if(result<0){
-         result.send("<h1>No Data!</h1>")
-       }
-      console.log("Result from API Members list", result);
-       setFalseStausCources(result);
-       console.log(result._id);
-       setLoading(false)
-     };
-     
-     useEffect(() => {
-      getData();
-      getFalseStausCources()
-    }, []);
+  setSingleCourse(result)
+  setLoading(false);
+  
+};
+
+const getFalseStausCources = async () => {
+  let result = await fetch("http://localhost:5000/Admin/getFalseStausCources");
+  result = await result.json();
+  console.log(result)
+  console.log("hamzano stratus found")
+  if(result<0){
+    result.send("<h1>No Data!</h1>")
+  }
+ console.log("Result from API Members list", result);
+  setFalseStausCources(result);
+  console.log(result._id);
+  setLoading(false)
+};
+
+
 
 
     const [progress, setProgress] = useState(Array(getProducts.length).fill(0));
@@ -119,7 +124,7 @@ const [getProducts, setProducts] = useState([]);
                     </div>
                 </div>
 
-                {getProducts.map((product,index) => {
+                {getSingleCourse.map((product,index) => {
                 return (
             <div className='row ms-0 mb-5' key={product._id}>
             <div className='row justify-content-center mt-3 ms-3' style={{width:'98%',height:"20%" , borderRadius:'10px'}}>
@@ -192,29 +197,29 @@ const [getProducts, setProducts] = useState([]);
                 <br/>
 
                 <div className='row ms-0'>
-                {getFalseStaus_cources.map((falseStatus)=>{
+                {getFalseStaus_cources.map((falseStaus)=>{
                     return(
                         <div  className='col-md-2 col-sm-2 border bg-white rounded p-0 m-2' style={{ width:"23%"}}>
                         <div className='row auto_height'>
                             {/* <img height="80%" src='/Recommended-Course-1.png' className='rounded' width="100%"></img> */}
                             <ReactPlayer
-                                // url={`http://128.199.221.11:5000/uploads/${falseStaus.image}`}
-                                url={`http://localhost:5000/uploads/${falseStatus.image}`}
+                                // url={`${API_Upload_Videos}${falseStaus.image}`}
                                 controls={true}
+                                light={'/Recommended-Course-4.png'}
                 />
                         </div>
                         <div className='row'>
-                            <p className='fs-6 mt-2 ms-1 fw-normal'> {falseStatus.name}</p>
+                            <p className='fs-6 mt-2 ms-1 fw-normal'> {falseStaus.name}</p>
                         </div>
                         <div className='row'>   
-                            <i className='fa-regular fa-clock ms-3'> &nbsp; {falseStatus.duration}</i>
+                            <i className='fa-regular fa-clock ms-3'> &nbsp; {falseStaus.duration}</i>
                         </div>
                         <div className='row mt-2'> 
                             <div className='col-md-2 m-0 p-0 me-2' style={{display:"flex",justifyContent:"right", height:"03%",width:"20%"}}>
                                 <img  src='/Award-star.png' style={{height:"03%",width:"60%"}}></img>
                             </div>
                             <div className='col-md-2 m-0 p-0' style={{height:"03%",width:"20%"}}>
-                                <span>{falseStatus.points}</span>
+                                <span>{falseStaus.points}</span>
                             </div>
                         </div>
                         <br/>
@@ -226,6 +231,7 @@ const [getProducts, setProducts] = useState([]);
                     </div>
                     )
                 })}
+                  
                 </div>
             </div>
         </div>

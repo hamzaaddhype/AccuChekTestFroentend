@@ -7,30 +7,52 @@ const CreateAccount = () => {
   const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [country, setSelectedCountry] = useState("usa");
   const [language, setSelectedLanguage] = useState("English");
+  const [password, setPassword] = useState("");
   const [confirm_password, setconfrim_password] = useState("");
   let [image, setImage] = useState(null);
+
+  // otp
+  const [otp, setOTP] = useState("");
+
+  const requestOTPData = {
+    email,
+  };
+
+  // otpend
   const [addedSuccessfully, setAddedSuccessfully] = useState(false);
+
+
   const savebtnhandler = async (e) => {
     e.preventDefault();
+    if (password !== confirm_password) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Passwords do not match',
+      });
+      return;
+    }
+
 
     let formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
     formData.append("country", country);
-    formData.append("password", password);
     formData.append("language", language);
+    formData.append("password", password);
     formData.append("confirm_password", confirm_password);
     formData.append("image", image);
 
     try {
+
+         let otp = await axios.post("http://localhost:5000/User/userRegister", formData);
       console.log("IN If Condointment")
       // send a POST request to the server to add the product
       let response = await axios.post("http://localhost:5000/User/userRegister", formData);
       console.log(response.data); 
-      if(response.status=== 201){
+  
+       if(response.status=== 201){
         Swal.fire("success!", "Register  Sucessfuly!", "success");
         setAddedSuccessfully(true);
         // resetFormData();
@@ -160,6 +182,13 @@ const CreateAccount = () => {
                         type="submit"
                         value="Submit" className='btn sign-btn_1 sign_btn  '>Sign up</button>
                        </div>
+
+                       {/* otp */}
+                       {/* <div className="mb-3">
+  <label for="otp" className="d-flex ms-3 form-label">OTP</label>
+  <input onChange={(e) => setOTP(e.target.value)} name="otp" type="text" className="form-control inputs_background" id="otp" placeholder='Enter OTP received in email'/>
+</div> */}
+                       {/*  */}
                        <div className='text-center mt-1'>
                          <p className='or'>Or</p>
                        </div>
